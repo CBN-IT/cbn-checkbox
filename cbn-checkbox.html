@@ -1,0 +1,92 @@
+<!--
+`cbn-checkbox` is a cbn-form compatible checkbox element based on `paper-checkbox`.
+
+Usage:
+    <cbn-checkbox name="ok" label="I'm okay"></cbn-checkbox>
+
+@demo demo/index.html
+@class cbn-checkbox
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="../cbn-form/lib/include.html" />
+
+<dom-module id="cbn-checkbox">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+			paper-checkbox {
+				@apply(--layout-horizontal);
+			}
+		</style>
+		
+		<paper-checkbox id="checkbox" name$="[[name]]"
+				disabled$="[[disabled]]" checked="{{value}}" invalid="{{invalid}}">
+			[[label]]
+			<content></content>
+		</paper-checkbox>
+	</template>
+</dom-module>
+
+<script>
+	(function () {
+		Polymer({
+			is: 'cbn-checkbox',
+			
+			properties: {
+				
+				value: {
+					type: String,
+					value: '',
+					observer: '_valueChanged'
+				},
+
+				/**
+				 * Whether the checkbox is disabled.
+				 */
+				disabled: {
+					type: Boolean,
+					value: false
+				},
+
+				/**
+				 * Modify the default value to be a boolean.
+				 */
+				defaultValue: {
+					type: Boolean,
+					value: false
+				}
+				
+			},
+			
+			behaviors: [
+				CbnForm.InputElement,
+				CbnForm.Validatable,
+				CbnForm.DynamicElement,
+			],
+			
+			/**
+			 * Element's dynamic attributes.
+			 */
+			dynamicAttributes: {
+				"label": { type: 'attribute' },
+				"disabled": { type: 'attribute' }
+			},
+			
+			ready: function () {
+			}
+			
+		});
+		
+		CbnForm.registerElement('cbn-checkbox', {
+			types: ['checkbox'],
+			priority: 3
+		});
+		
+	})();
+</script>

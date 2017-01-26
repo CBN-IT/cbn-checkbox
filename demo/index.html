@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+	<title>Cbn-Checkbox Demo</title>
+	
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	
+	<link rel="import" href="../cbn-checkbox.html" />
+	<link rel="import" href="../../cbn-form/cbn-form.html" />
+	<link rel="import" href="../../cbn-form/cbn-dynamic-form.html" />
+</head>
+<body>
+
+<div style="margin: 20px auto; width: 500px;">
+	
+	<template is="dom-bind">
+		
+		<form id="demoForm" is="cbn-form" model="{{model}}">
+			<h1>Standard</h1>
+			<div class="section">
+				<p><cbn-checkbox name="check1" label="Check me"></cbn-checkbox></p>
+				<p><cbn-checkbox name="check2" label="Check 2"></cbn-checkbox></p>
+			</div>
+			
+			<h1>Dynamic Form</h1>
+			<div class="section">
+				<cbn-dynamic-form config="[[dynFormConfig]]"></cbn-dynamic-form>
+			</div>
+		</form>
+		
+		<p style="font-weight: bold;">Output: </p>
+		<pre id="stringifiedJson"></pre>
+		
+	</template>
+</div>
+
+<script>
+	var tpl = document.querySelector('template[is=dom-bind]');
+	tpl.model = {"check2": true};
+	tpl.dynFormConfig = {
+		"elements": [
+			{
+				type: "checkbox",
+				name: "check3",
+				label: "Three"
+			}
+		]
+	};
+	
+	tpl.addEventListener('dom-change', function() {
+		/** @namespace tpl.$.demoForm */
+		var form = tpl.$.demoForm;
+		
+		function updateOutput() {
+			/** @namespace tpl.$.stringifiedJson */
+			tpl.$.stringifiedJson.textContent = JSON.stringify(form.model, null, 4);
+		}
+		
+		form.addEventListener('value-changed', updateOutput);
+		updateOutput();
+	});
+
+</script>
+
+</body>
