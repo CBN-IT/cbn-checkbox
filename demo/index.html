@@ -7,10 +7,23 @@
 	<title>Cbn-Checkbox Demo</title>
 	
 	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../../polymer-reflection/polymer-reflection.html"/>
 	
 	<link rel="import" href="../cbn-checkbox.html" />
 	<link rel="import" href="../../cbn-form/cbn-form.html" />
 	<link rel="import" href="../../cbn-form/cbn-dynamic-form.html" />
+	<link rel="import" href="../../cbn-form/elements/polymer-elements.html" />
+	
+	<link rel="import" href="../../iron-input/iron-input.html"/>
+	<link rel="import" href="../../paper-input/paper-input.html"/>
+	<style is="custom-style">
+		cbn-dynamic-form {
+			@apply(--layout-horizontal);
+		}
+		cbn-dynamic-form cbn-checkbox {
+			margin-left: 10px;
+		}
+	</style>
 </head>
 <body>
 
@@ -42,6 +55,11 @@
 	tpl.model = {"check2": true};
 	tpl.dynFormConfig = {
 		"elements": [
+			{
+				type: "text",
+				name: "text1",
+				label: "Some text"
+			},
 			{
 				type: "checkbox",
 				name: "check3",

@@ -18,10 +18,10 @@ Usage:
 	<template>
 		<style>
 			:host {
-				display: block;
-			}
-			paper-checkbox {
 				@apply(--layout-horizontal);
+				@apply(--layout-end);
+				
+				padding: 8px 0;
 			}
 		</style>
 		
@@ -40,12 +40,6 @@ Usage:
 			
 			properties: {
 				
-				value: {
-					type: String,
-					value: '',
-					observer: '_valueChanged'
-				},
-
 				/**
 				 * Whether the checkbox is disabled.
 				 */
